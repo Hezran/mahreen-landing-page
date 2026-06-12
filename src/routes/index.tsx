@@ -14,16 +14,12 @@ import {
   Zap,
   Menu,
   X,
-  Quote,
-  Star,
   Sun,
   Moon,
   Instagram,
   Twitter,
   Linkedin,
   Github,
-  ChevronLeft,
-  ChevronRight,
   Palette,
   Cpu,
   Clock,
@@ -36,7 +32,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Hero } from "@/components/ui/animated-hero";
-import useEmblaCarousel from "embla-carousel-react";
+import { Marquee } from "@/components/ui/marquee";
 import {
   useScrollAnimation,
   staggerContainer,
@@ -125,11 +121,10 @@ function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border/60 bg-background/80 backdrop-blur-lg"
-          : "bg-transparent"
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled
+        ? "border-b border-border/60 bg-background/80 backdrop-blur-lg"
+        : "bg-transparent"
+        }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="#beranda" className="flex items-center gap-2">
@@ -419,59 +414,95 @@ const STATS = [
 
 const TESTIMONIALS = [
   {
-    quote:
-      "Mahreen kasih aku ruang buat belajar sambil bikin sesuatu yang berarti. Sekarang aku punya circle teman yang sama-sama mau berdampak.",
     name: "Aisyah Putri",
-    role: "Mahasiswa, Bandung",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
-    rating: 5,
+    username: "@aisyah",
+    body: "Mahreen kasih aku ruang buat belajar sambil bikin sesuatu yang berarti. Sekarang aku punya circle teman yang sama-sama mau berdampak.",
+    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
+    city: "Bandung",
   },
   {
-    quote:
-      "Dari ikut workshop sampai bikin produk nyata bareng tim — pengalaman di Mahreen ngubah cara aku ngeliat teknologi dan masa depan Indonesia.",
     name: "Reza Mahendra",
-    role: "Developer Muda, Surabaya",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
-    rating: 5,
+    username: "@reza",
+    body: "Dari ikut workshop sampai bikin produk nyata bareng tim — pengalaman di Mahreen ngubah cara aku ngeliat teknologi.",
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+    city: "Surabaya",
   },
   {
-    quote:
-      "Mentorship di Mahreen bukan cuma teori. Aku langsung praktek bikin aplikasi yang bisa dipake warga di kampungku. Luar biasa!",
     name: "Dinda Ayu",
-    role: "UI Designer, Yogyakarta",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
-    rating: 5,
+    username: "@dinda",
+    body: "Mentorship di Mahreen bukan cuma teori. Aku langsung praktek bikin aplikasi yang bisa dipake warga di kampungku!",
+    img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
+    city: "Yogyakarta",
   },
   {
-    quote:
-      "Networking di Mahreen itu beda. Aku ketemu co-founder startup aku di sini. Sekarang kita udah launch produk pertama kita.",
     name: "Fajar Nugroho",
-    role: "Founder Startup, Jakarta",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
-    rating: 5,
+    username: "@fajar",
+    body: "Networking di Mahreen itu beda. Aku ketemu co-founder startup aku di sini. Sekarang kita udah launch produk pertama.",
+    img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
+    city: "Jakarta",
   },
   {
-    quote:
-      "Program bootcamp-nya intensive banget tapi worth it. Dalam 3 bulan, aku bisa bikin portfolio yang dilirik recruiter top tech company.",
     name: "Sari Wulandari",
-    role: "Software Engineer, Malang",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80",
-    rating: 5,
+    username: "@sari",
+    body: "Program bootcamp-nya intensive tapi worth it. Dalam 3 bulan, aku bisa bikin portfolio yang dilirik recruiter top tech.",
+    img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80",
+    city: "Malang",
+  },
+  {
+    name: "Bayu Pratama",
+    username: "@bayu",
+    body: "Workshop coding-nya keren banget. Materinya up-to-date dan langsung bisa diaplikasikan di proyek kampus.",
+    img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80",
+    city: "Semarang",
+  },
+  {
+    name: "Nadia Rahma",
+    username: "@nadia",
+    body: "Komunitasnya supportive banget! Semua saling bantu dan nggak ada yang pelit ilmu. Love Mahreen!",
+    img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80",
+    city: "Medan",
+  },
+  {
+    name: "Rizki Aditya",
+    username: "@rizki",
+    body: "Proyek sosial yang aku ikut di Mahreen bikin aku sadar kalau teknologi bisa jadi solusi nyata buat masyarakat.",
+    img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
+    city: "Makassar",
+  },
+  {
+    name: "Lestari Dewi",
+    username: "@lestari",
+    body: "Dari Mahreen aku belajar UI/UX design dari nol sampai sekarang freelance. Terima kasih mentor-mentornya!",
+    img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&q=80",
+    city: "Denpasar",
   },
 ];
+
+function TestimonialCard({ img, name, username, body, city }: (typeof TESTIMONIALS)[number]) {
+  return (
+    <div className="w-52 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+      <div className="flex items-center gap-2.5">
+        <img
+          src={img}
+          alt={name}
+          className="h-9 w-9 rounded-full object-cover"
+          loading="lazy"
+        />
+        <div className="flex flex-col min-w-0">
+          <span className="text-sm font-medium text-ink-foreground flex items-center gap-1 truncate">
+            {name} <span className="text-[10px] text-ink-foreground/50">{city}</span>
+          </span>
+          <span className="text-xs text-ink-foreground/40">{username}</span>
+        </div>
+      </div>
+      <blockquote className="mt-3 text-xs leading-relaxed text-ink-foreground/70">{body}</blockquote>
+    </div>
+  );
+}
 
 function SocialProof() {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    loop: true,
-    slidesToScroll: 1,
-  });
-
-  const scrollPrev = () => emblaApi?.scrollPrev();
-  const scrollNext = () => emblaApi?.scrollNext();
 
   return (
     <section className="border-y border-border bg-ink text-ink-foreground py-24">
@@ -507,60 +538,44 @@ function SocialProof() {
           ))}
         </motion.div>
 
-        {/* Testimonial Carousel */}
-        <div className="mt-16 relative">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="font-display text-xl font-bold text-ink-foreground">
-              Apa kata mereka
-            </h3>
-            <div className="flex gap-2">
-              <button
-                onClick={scrollPrev}
-                aria-label="Previous testimonial"
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-ink-foreground/70 transition-colors hover:bg-white/10 hover:text-ink-foreground"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={scrollNext}
-                aria-label="Next testimonial"
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-ink-foreground/70 transition-colors hover:bg-white/10 hover:text-ink-foreground"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div ref={emblaRef} className="overflow-hidden">
-            <div className="flex gap-6">
-              {TESTIMONIALS.map((t) => (
-                <figure
-                  key={t.name}
-                  className="min-w-0 flex-[0_0_100%] md:flex-[0_0_48%] rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
-                >
-                  {/* Star rating */}
-                  <div className="flex gap-0.5 mb-4">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-accent text-accent" />
-                    ))}
-                  </div>
-                  <blockquote className="text-base leading-relaxed text-ink-foreground/90 md:text-lg">
-                    "{t.quote}"
-                  </blockquote>
-                  <figcaption className="mt-6 flex items-center gap-3">
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="h-10 w-10 rounded-full object-cover"
-                      loading="lazy"
-                    />
-                    <div>
-                      <div className="text-sm font-semibold">{t.name}</div>
-                      <div className="text-xs text-ink-foreground/60">{t.role}</div>
-                    </div>
-                  </figcaption>
-                </figure>
-              ))}
+        {/* 3D Testimonial Marquee */}
+        <div className="mt-16">
+          <h3 className="font-display text-xl font-bold text-ink-foreground mb-8 text-center">
+            Apa kata mereka
+          </h3>
+          <div className="relative flex h-[420px] w-full flex-row items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] gap-1.5 [perspective:300px]">
+            <div
+              className="flex flex-row items-center gap-4"
+              style={{
+                transform:
+                  "translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)",
+              }}
+            >
+              <Marquee vertical pauseOnHover repeat={3} className="[--duration:40s]">
+                {TESTIMONIALS.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover reverse repeat={3} className="[--duration:40s]">
+                {TESTIMONIALS.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover repeat={3} className="[--duration:40s]">
+                {TESTIMONIALS.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover reverse repeat={3} className="[--duration:40s]">
+                {TESTIMONIALS.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              {/* Gradient overlays */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-ink"></div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-ink"></div>
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-ink"></div>
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-ink"></div>
             </div>
           </div>
         </div>
@@ -853,73 +868,73 @@ function OurPrograms() {
           }}
           className="mx-auto max-w-7xl space-y-8"
         >
-        {PROGRAMS.map(({ icon: Icon, title, desc, duration, schedule, highlights, gradient, iconBg }, i) => (
-          <motion.div
-            key={title}
-            variants={{
-              hidden: { opacity: 0, y: 40 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] },
-              },
-            }}
-            className="group relative rounded-2xl border border-border bg-card overflow-hidden transition-all hover:shadow-xl hover:border-primary/30"
-          >
-            {/* Gradient accent */}
-            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient} opacity-60 group-hover:opacity-100 transition-opacity`} />
+          {PROGRAMS.map(({ icon: Icon, title, desc, duration, schedule, highlights, gradient, iconBg }, i) => (
+            <motion.div
+              key={title}
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] },
+                },
+              }}
+              className="group relative rounded-2xl border border-border bg-card overflow-hidden transition-all hover:shadow-xl hover:border-primary/30"
+            >
+              {/* Gradient accent */}
+              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient} opacity-60 group-hover:opacity-100 transition-opacity`} />
 
-            <div className="p-8 md:p-10">
-              <div className="flex flex-col md:flex-row gap-8">
-                {/* Left */}
-                <div className="flex-1">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className={`inline-grid h-14 w-14 place-items-center rounded-2xl ${iconBg} shrink-0`}>
-                      <Icon className="h-7 w-7" />
-                    </div>
-                    <div>
-                      <h2 className="font-display text-2xl font-bold md:text-3xl">{title}</h2>
-                      <div className="mt-2 flex flex-wrap gap-3">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/60">
-                          <Clock className="h-3.5 w-3.5" />
-                          {duration}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/60">
-                          <Calendar className="h-3.5 w-3.5" />
-                          {schedule}
-                        </span>
+              <div className="p-8 md:p-10">
+                <div className="flex flex-col md:flex-row gap-8">
+                  {/* Left */}
+                  <div className="flex-1">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className={`inline-grid h-14 w-14 place-items-center rounded-2xl ${iconBg} shrink-0`}>
+                        <Icon className="h-7 w-7" />
+                      </div>
+                      <div>
+                        <h2 className="font-display text-2xl font-bold md:text-3xl">{title}</h2>
+                        <div className="mt-2 flex flex-wrap gap-3">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/60">
+                            <Clock className="h-3.5 w-3.5" />
+                            {duration}
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/60">
+                            <Calendar className="h-3.5 w-3.5" />
+                            {schedule}
+                          </span>
+                        </div>
                       </div>
                     </div>
+                    <p className="text-sm leading-relaxed text-foreground/70 md:text-base">
+                      {desc}
+                    </p>
                   </div>
-                  <p className="text-sm leading-relaxed text-foreground/70 md:text-base">
-                    {desc}
-                  </p>
-                </div>
 
-                {/* Right — highlights */}
-                <div className="md:w-72 shrink-0">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">
-                    Yang akan kamu dapat
-                  </p>
-                  <ul className="space-y-2">
-                    {highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2 text-sm text-foreground/70">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button asChild size="sm" className="mt-5 rounded-full" variant={i === 0 ? "default" : "outline"}>
-                    <a href="#kontak">
-                      Daftar <ArrowRight className="ml-1 h-3.5 w-3.5" />
-                    </a>
-                  </Button>
+                  {/* Right — highlights */}
+                  <div className="md:w-72 shrink-0">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">
+                      Yang akan kamu dapat
+                    </p>
+                    <ul className="space-y-2">
+                      {highlights.map((h) => (
+                        <li key={h} className="flex items-start gap-2 text-sm text-foreground/70">
+                          <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                    <Button asChild size="sm" className="mt-5 rounded-full" variant={i === 0 ? "default" : "outline"}>
+                      <a href="#kontak">
+                        Daftar <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
@@ -934,8 +949,8 @@ function LandingPage() {
         <Hero />
         <WhyJoin />
         <OurPrograms />
-        <HowItWorks />
         <SocialProof />
+        <HowItWorks />
         <CTA />
       </main>
       <Footer />
